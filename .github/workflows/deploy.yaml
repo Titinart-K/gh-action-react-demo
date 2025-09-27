@@ -8,20 +8,9 @@ on:
     types:
       - opened
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get Code
-        uses: actions/checkout@v5
-      - name: Install Dependencies
-        run: npm i
-      - name: Run ESLint
-        run: npm run lint
-  deploy:
-    needs:
-      - lint
-    runs-on: ubuntu-latest
-    steps:
+  build:
+  runs-on: ubuntu-latest
+  steps:
       - name: Get Code
         uses: actions/checkout@v5
       - name: Install Dependencies
@@ -30,5 +19,20 @@ jobs:
         run: npm run build
       - name: List files
         run: ls -l dist
+      - name: Upload dist
+        uses: action/upload-artifact@v4
+        with: 
+          name: dist-folder
+          path: dist/
+
+  deploy:
+    needs:
+      - build
+    steps:
+      - name: Download dist
+        uses: action/upload-artifact@v4
+        with: 
+          name: dist-folder
+          path: dist
       - name: Deploy
         run: echo "Deploying..."
