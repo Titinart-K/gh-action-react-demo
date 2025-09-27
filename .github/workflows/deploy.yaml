@@ -7,10 +7,18 @@ on:
   pull_request:
     types:
       - opened
+
+env: 
+  KEY: 4564
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Print KEY 
+        run: echo "KEY value:${{vars.API_KEY}}"
+      - name: Print KEY2 
+        run: echo "KEY2 value:${{secrets.API_KEY2}}"        
+        uses: actions/checkout@v5
       - name: Clone repo
         uses: actions/checkout@v5
       - name: Get npm cache directory
