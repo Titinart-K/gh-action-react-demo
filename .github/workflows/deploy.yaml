@@ -1,16 +1,16 @@
 name: Deploy Project
 on:
   push:
-   branches:
-      - main  
+    branches:
+      - main
   workflow_dispatch:
   pull_request:
     types:
       - opened
 jobs:
   build:
-  runs-on: ubuntu-latest
-  steps:
+    runs-on: ubuntu-latest
+    steps:
       - name: Get Code
         uses: actions/checkout@v5
       - name: Install Dependencies
@@ -21,7 +21,7 @@ jobs:
         run: ls -l dist
       - name: Upload dist
         uses: action/upload-artifact@v4
-        with: 
+        with:
           name: dist-folder
           path: dist/
 
@@ -32,7 +32,7 @@ jobs:
     steps:
       - name: Download dist
         uses: action/upload-artifact@v4
-        with: 
+        with:
           name: dist-folder
           path: dist
       - name: Deploy
