@@ -13,6 +13,11 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: 
+      image: node
+      env: 
+        NODE_ENV: dev
+
     steps:
       - name: Print KEY
         run: echo "KEY value:${{vars.API_KEY}}"
